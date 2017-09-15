@@ -1,5 +1,3 @@
-
-
 class VScrollbar
 {
   int swidth, sheight;    // width and height of bar
