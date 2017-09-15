@@ -1,19 +1,18 @@
 //networking
 import processing.net.*;
-
-VScrollbar vs1;
 Server s;
 Client c;
-String input;
-int data[];
-
+//objects
+VScrollbar vs1;
 //strings
-//display and message creation
+String input;
 StringList Msg = new StringList(); //Contains all Messages
 String txt= ""; //Contains Input for a Message
 String username; //Contains Username for User
+String time;
 //Ints
 int maxFrameRate = 30;
+int data[];
 //Bools
 boolean jeff = false; //It's name is jeff
 boolean user = false; //For checking to see if username had been input
@@ -21,89 +20,74 @@ boolean user = false; //For checking to see if username had been input
 color TC = color(114, 72, 194);//text color
 color BC = color(135, 135, 135);//background color
 color SBC = color(160,160,170);//ScrollBackground
+//float
+float Pos;
 
 void setup(){
+ //Initialization
+ size(750, 600); //size of default image
+ vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
+ username = "Guest"; 
+ frameRate(maxFrameRate); //Making frame rate Max frame rate
+ 
+ //Startup
  Msg.append("Start of Chat");
  Msg.append("");
- username = "MARX";
-
- //Start of chat time stamp in PRINTLN
- print (hour() + ":" + minute() + ":" + second() + " " + day() + "/" + month() + "/" + year());
  
- /*
- String[] fontList = PFont.list();
- println(fontList); */
- 
-   //size of default image, 
- size(600, 450); 
-   //making box resizeable
- if(frame != null){
+ //making box resizeable
+ /*if(frame != null){
     surface.setResizable(true); 
- }
- //Making frame rate Max frame rate
- frameRate(maxFrameRate);
- 
- vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
+ }*/
 }
 
-
 void draw(){
-  //Get Position of Scrollbar
-  float Pos = vs1.getPos()-height+150;
+  //Update Variables
+  time = hour() + ":" + minute() + ":" + second() + " " + day() + "/" + month() + "/" + year(); //Get Time
+  Pos = vs1.getPos()-height+150; //Get Position of Scrollbar
+  background(BC); // Make background Background Colour
   
-  // Make background Background Colour
-  background(BC);
-  
-  //Text
-  fill(TC);
   //Prints messages
-  if (user == true){
+  fill(TC);
+  if (user == true){ //If the username field has been filled, print Input as Message
     textSize(12);
     for (int i = Msg.size()-1; i > -1; i--){
       text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
     }
-    //makes username be input first
-  } else {
+  } else { //Else make Input Username
     textSize(15);
     text("Input Username", 15, -15+(height-30));
   }
   
-   //fill the box with the Background Color
+  //Create Textbox
   fill(BC);
   strokeWeight(2);
-  //border of box as Text color
   stroke(TC);
-  //box resizing
   rect(0, (height-30), (width-1), 29);
   
-  //make the rest text colour
+  //Create Blinking Cursor and Draw the Input in the textbox
   fill(TC);
-  // determines when to show |
-  if ((frameCount % maxFrameRate) == 0){
+  if ((frameCount % maxFrameRate) == 0){ //If the amount of frames displayed is a multible of the Maxframerate (Every Second), show cursor
     jeff = true;
-  } else if ((frameCount % (maxFrameRate/2)) == 0){
+  } else if ((frameCount % (maxFrameRate/2)) == 0){ //Same thing but Every Second + 1/2 Second
     jeff = false;
   }
-  //making it appear
   if(jeff){
     text((txt+"|"), 20, height-10);
   } else {
     text((txt), 20, height-10);
   }
   
+  //Update Scrollbar
   vs1.update();
   vs1.display();
 }
 
 void keyPressed(){
-  //adds the typed 
-  if(keyCode == ENTER && txt != "" && user == true){
-  //Msg.append(hour() + ":" + minute() + " " + day() + "/" + month() + "/" + year());
-    //adds username to text
-    Msg.append(username + ": " + txt);
-    //resets the text to nothing
-    Msg.append("");
-    txt = "";
+  if(keyCode == ENTER && txt != "" && user == true){ //If Message is sent
+  //Msg.append(time); //Adds Timestamp to Msg()
+  Msg.append(username + ": " + txt); //adds txt to Msg
+  Msg.append(""); //Makes a space between Messages
+  txt = ""; //Clears txt
   } else if (keyCode == ENTER && txt != "" && user == false) {
     //making if no username inputed username be inputed
     username = txt;
@@ -118,9 +102,9 @@ void keyPressed(){
     txt += key;
   }
 }
-/////NOT IMPORTANT
-void mousePressed(){
+/////DEBUGGING
+/*void mousePressed(){
  if(mousePressed){
   println(mouseX,":",mouseY); 
  }
-}
+}*/
