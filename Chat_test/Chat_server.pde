@@ -1,7 +1,7 @@
-//networking
-import processing.net.*;
-Server s;
-Client c;
+ //networking
+import processing.serial.*;
+Serial s;
+//Client c;
 //objects
 VScrollbar vs1;
 //strings
@@ -31,6 +31,9 @@ void setup(){
  vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
  username = "Guest"; 
  frameRate(maxFrameRate); //Making frame rate Max frame rate
+ //server setup
+ s = new Serial(this, Serial.list()[0], 9600);
+ 
  
  //Startup
  Msg.append("Start of Chat");
