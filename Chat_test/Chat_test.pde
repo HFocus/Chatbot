@@ -6,22 +6,24 @@ Client c;
 VScrollbar vs1;
 //strings
 String input;
-StringList Msg = new StringList(); //Contains all Messages
-String txt= ""; //Contains Input for a Message
-String username; //Contains Username for User
-String time;
-//Ints
-int maxFrameRate = 30;
+StringList Msg = new StringList(); //contains all Messages
+String txt= "";                    //contains Input for a Message
+String username;                   //contains Username for User
+String time;                       //contains a Timestamp
+//ints
+int maxFrameRate = 30;             //max framerate
 int data[];
-//Bools
-boolean jeff = false; //It's name is jeff
-boolean user = false; //For checking to see if username had been input
+//bools
+boolean jeff = false;              //it's name is jeff
+boolean user = false;              //for checking to see if username had been input
 //colors
-color TC = color(114, 72, 194);//text color
-color BC = color(135, 135, 135);//background color
-color SBC = color(160,160,170);//ScrollBackground
+color TC = color(0);               //text color
+color BC = color(255);             //background color
+color SBC = color(125);            //scrollBackground
 //float
 float Pos;
+float txtSize = 15;
+float sscale;                      //scale of the slider
 
 void setup(){
  //Initialization
@@ -45,16 +47,18 @@ void draw(){
   time = hour() + ":" + minute() + ":" + second() + " " + day() + "/" + month() + "/" + year(); //Get Time
   Pos = vs1.getPos()-height+150; //Get Position of Scrollbar
   background(BC); // Make background Background Colour
+  sscale = (txtSize*Msg.size())+35+txtSize;
+  rect(0, (height-sscale), (width-1), 2);
   
   //Prints messages
   fill(TC);
   if (user == true){ //If the username field has been filled, print Input as Message
-    textSize(12);
+    textSize(int(txtSize*0.73));
     for (int i = Msg.size()-1; i > -1; i--){
-      text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
+      text(Msg.get(i), 15, (Msg.size()-i)*-txtSize+(height+125)-(Pos));
     }
   } else { //Else make Input Username
-    textSize(15);
+    textSize(txtSize);
     text("Input Username", 15, -15+(height-30));
   }
   
@@ -88,6 +92,8 @@ void keyPressed(){
   Msg.append(username + ": " + txt); //adds txt to Msg
   Msg.append(""); //Makes a space between Messages
   txt = ""; //Clears txt
+  println(sscale);
+  
   } else if (keyCode == ENTER && txt != "" && user == false) {
     //making if no username inputed username be inputed
     username = txt;
@@ -96,10 +102,13 @@ void keyPressed(){
     Msg.append(hour() + ":" + minute() + " " + day() + "/" + month() + "/" + year());
     Msg.append("SERVER: " + username + " has entered the chat");
     //allowing backspace
+    
   } else if(keyCode == BACKSPACE && txt.length() > 0){
     txt = txt.substring(0,txt.length()-1);
+    
   } else if ((key >= ' ' && key <= '~')){
     txt += key;
+    
   }
 }
 /////DEBUGGING
