@@ -66,6 +66,7 @@ void draw() {
   }
 
   //Update Variables
+  sscale = (txtSize*Msg.size())+35+txtSize;
   time = hour() + ":" + minute() + ":" + second() + " " + day() + "/" + month() + "/" + year(); //Get Time
   Pos = vs1.getPos()-height*(sscale/height)+150; //Get Position of Scrollbar
   background(BC); // Make background Background Colour
