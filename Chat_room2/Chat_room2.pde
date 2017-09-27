@@ -28,7 +28,7 @@ color BC = color(29,34,42);//background color
 color SBC = color(160, 160, 170);//ScrollBackground
 //float
 float Pos;
-
+float sscale;                      //scale of the slider
 
 
 void setup() {
@@ -67,7 +67,7 @@ void draw() {
 
   //Update Variables
   time = hour() + ":" + minute() + ":" + second() + " " + day() + "/" + month() + "/" + year(); //Get Time
-  Pos = vs1.getPos()-height+150; //Get Position of Scrollbar
+  Pos = vs1.getPos()-height*(sscale/height)+150; //Get Position of Scrollbar
   background(BC); // Make background Background Colour
 
   //Prints messages
