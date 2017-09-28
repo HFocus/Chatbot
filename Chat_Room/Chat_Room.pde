@@ -13,6 +13,7 @@ StringList Msg = new StringList(); //Contains all Messages
 String txt= ""; //Contains Input for a Message
 String username; //Contains Username for User
 String time;
+String ConnectIp = "";  //Type connect ip here
 
 //Ints
 int maxFrameRate = 30;
@@ -40,9 +41,9 @@ void setup() {
   //Starting Server connections
   s = new Server(this, 1234);
    try {
-    c = new Client(this, "127.0.0.1", 5678);
+    c = new Client(this, ConnetIp, 5678);
   }
-  catch( Exception e) {
+ 	catch( Exception e) {
     e.printStackTrace();
     println("failed to connect");
   }
