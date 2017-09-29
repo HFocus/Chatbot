@@ -5,9 +5,9 @@ Client c;
 String dataIn;
 
 //Prerun Constants
-int cPort = 1234;                     //Their sPort
-int sPort = 5678;                     //Their cPort
-String ConnectIp = "164.104.40.117";  //Type connect ip here
+int cPort = ;                     //Their sPort
+int sPort = ;                     //Their cPort
+String ConnectIp = ;  //Type connect ip here
 
 //objects
 VScrollbar vs1;
