@@ -4,16 +4,20 @@ Server s;
 Client c;
 String dataIn;
 
+//Prerun Constants
+int cPort = ;                     //Thier sPort
+int sPort = ;                     //Thier cPort
+String ConnectIp = "";  //Type connect ip here
+
 //objects
 VScrollbar vs1;
 
 //strings
 String input;
 StringList Msg = new StringList(); //Contains all Messages
-String txt= ""; //Contains Input for a Message
-String username; //Contains Username for User
-String time;
-String ConnectIp = "";  //Type connect ip here
+String txt= "";                    //Contains Input for a Message
+String username;                   //Contains Username for User
+String time;                       //Containts current timestamp
 
 //Ints
 int maxFrameRate = 30;
@@ -29,6 +33,7 @@ color BC = color(29,34,42);//background color
 color SBC = color(160, 160, 170);//ScrollBackground
 //float
 float Pos;
+float txtSize = 15;
 float sscale;                      //scale of the slider
 
 
@@ -39,9 +44,9 @@ void setup() {
   username = "Guest"; 
   frameRate(maxFrameRate); //Making frame rate Max frame rate
   //Starting Server connections
-  s = new Server(this, 1234);
+  s = new Server(this, sPort);
    try {
-    c = new Client(this, ConnetIp, 5678);
+    c = new Client(this, ConnectIp, cPort);
   }
  	catch( Exception e) {
     e.printStackTrace();
