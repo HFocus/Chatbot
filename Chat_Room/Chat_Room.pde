@@ -5,12 +5,13 @@ Client c;
 String dataIn;
 
 //Prerun Constants
-int cPort = ;                     //Their sPort
-int sPort = ;                     //Their cPort
-String ConnectIp = "";  //Type connect ip here
+int cPort = 1234;                     //Their sPort
+int sPort = 5678;                     //Their cPort
+String ConnectIp = "164.104.40.117";  //Type connect ip here
 
 //objects
 VScrollbar vs1;
+Commands cmd;
 
 //strings
 String input;
@@ -28,8 +29,8 @@ boolean jeff = false; //It's name is jeff
 boolean user = false; //For checking to see if username had been input
 
 //colors
-color TC = color(153,138,255);//text color
-color BC = color(29,34,42);//background color
+color TC = color(153, 138, 255);//text color
+color BC = color(29, 34, 42);//background color
 color SBC = color(160, 160, 170);//ScrollBackground
 //float
 float Pos;
@@ -40,7 +41,10 @@ float sscale;                      //scale of the slider
 void setup() {
   //Initialization
   size(750, 600); //size of default image
+
   vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
+  cmd = new Commands();
+
   username = "Guest"; 
   frameRate(maxFrameRate); //Making frame rate Max frame rate
   //Starting Server connections
@@ -110,11 +114,16 @@ void draw() {
 
 void keyPressed() {
   if (keyCode == ENTER && txt != "" && user == true) { //If Message is sent
-    //Msg.append(time); //Adds Timestamp to Msg()
-    Msg.append(username + ": " + txt); //adds txt to Msg
-    s.write(username + ":" + txt);
-    Msg.append(""); //Makes a space between Messages
-    txt = ""; //Clears txt
+    if (txt.charAt(0) != '/') {
+      //Msg.append(time); //Adds Timestamp to Msg()
+      Msg.append(username + ": " + txt); //adds txt to Msg
+      s.write(username + ":" + txt);
+      Msg.append(""); //Makes a space between Messages
+      txt = ""; //Clears txt
+    } else {
+      cmd.Order(txt);
+      txt = ""; //Clears txt
+    }
   } else if (keyCode == ENTER && txt != "" && user == false) {
     //making if no username inputed username be inputed
     username = txt;

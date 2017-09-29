@@ -24,21 +24,21 @@ class VScrollbar
   }
 
   void update() {
-    if(over()) {
+    if (over()) {
       over = true;
     } else {
       over = false;
     }
-    if(mousePressed && over) {
+    if (mousePressed && over) {
       locked = true;
     }
-    if(!mousePressed) {
+    if (!mousePressed) {
       locked = false;
     }
-    if(locked) {
+    if (locked) {
       newspos = constrain(mouseY-swidth/2, sposMin, sposMax);
     }
-    if(abs(newspos - spos) > 1) {
+    if (abs(newspos - spos) > 1) {
       spos = spos + (newspos-spos)/loose;
     }
   }
@@ -48,8 +48,8 @@ class VScrollbar
   }
 
   boolean over() {
-    if(mouseX > xpos && mouseX < xpos+swidth &&
-    mouseY > ypos && mouseY < ypos+sheight) {
+    if (mouseX > xpos && mouseX < xpos+swidth &&
+      mouseY > ypos && mouseY < ypos+sheight) {
       return true;
     } else {
       return false;
@@ -59,7 +59,7 @@ class VScrollbar
   void display() {
     fill(SBC);
     rect(xpos, ypos, swidth, sheight);
-    if(over || locked) {
+    if (over || locked) {
       fill(BC);
     } else {
       fill(TC);
