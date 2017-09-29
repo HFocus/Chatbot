@@ -5,9 +5,9 @@ Client c;
 String dataIn;
 
 //Prerun Constants
-int cPort = ;                     //Thier sPort
-int sPort = ;                     //Thier cPort
-String ConnectIp = "";  //Type connect ip here
+int cPort = 1234;                     //Their sPort
+int sPort = 5678;                     //Their cPort
+String ConnectIp = "164.104.40.117";  //Type connect ip here
 
 //objects
 VScrollbar vs1;
@@ -45,13 +45,8 @@ void setup() {
   frameRate(maxFrameRate); //Making frame rate Max frame rate
   //Starting Server connections
   s = new Server(this, sPort);
-   try {
-    c = new Client(this, ConnectIp, cPort);
-  }
- 	catch( Exception e) {
-    e.printStackTrace();
-    println("failed to connect");
-  }
+  delay(3000);
+  c = new Client(this, ConnectIp, cPort);
   //Startup
   Msg.append("Start of Chat");
   Msg.append("");
@@ -128,6 +123,7 @@ void keyPressed() {
     Msg.append(hour() + ":" + minute() + " " + day() + "/" + month() + "/" + year());
     Msg.append("SERVER: " + username + " has entered the chat");
     s.write("SERVER: " + username + " has entered the chat");
+    Msg.append("");
     //allowing backspace
   } else if (keyCode == BACKSPACE && txt.length() > 0) {
     txt = txt.substring(0, txt.length()-1);
