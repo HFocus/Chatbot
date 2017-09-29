@@ -11,6 +11,7 @@ class Commands
   }
 
   void Leave() {
+    s.stop();
     c.stop();
   }
 }
