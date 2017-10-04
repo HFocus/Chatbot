@@ -114,7 +114,7 @@ void draw() {
 
 void keyPressed() {
   if (keyCode == ENTER && txt != "" && user == true) { //If Message is sent
-    if (txt.charAt(0) != '/') {
+    if (txt.length() != 0 && txt.charAt(0) != '/') {
       //Msg.append(time); //Adds Timestamp to Msg()
       Msg.append(username + ": " + txt); //adds txt to Msg
       s.write(username + ":" + txt);
