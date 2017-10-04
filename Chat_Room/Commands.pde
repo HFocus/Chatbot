@@ -2,6 +2,7 @@ class Commands
 {
 
   String orderIn;
+  
 
   Commands () {
   }
@@ -9,17 +10,37 @@ class Commands
   void Order(String orderIn_) {
     orderIn = orderIn_;
     trim(orderIn);
-    orderIn = orderIn.substring(1, orderIn.length());
-
-    if (orderIn.charAt(0) == 'l' && orderIn.charAt(1) == 'e' && orderIn.charAt(2) == 'a' && orderIn.charAt(3) == 'v' && orderIn.charAt(4) == 'e') {
+    orderIn.toLowerCase();
+    
+    
+    int iOrderIn = orderIn.indexOf("leave");
+    if (iOrderIn == 1) {
       Leave();
+    }
+    
+    iOrderIn = orderIn.indexOf("ip");
+    if (iOrderIn == 1) {
+      myIp();
+    }
+    
+    iOrderIn = orderIn.indexOf("oip");
+    if (iOrderIn == 1) {
+      otherIp();
     }
   }
 
   void Leave() {
-    s.write(username+" has left the chat");
+    s.write("SERVER: " + username + " has left the chat");
     s.stop();
     c.stop();
     exit();
+  }
+  
+  void myIp() {
+    Msg.append("SERVER: Your Ip: " + ip[0]);
+  }
+  
+  void otherIp() {
+    Msg.append("SERVER: Their Ip:" + ConnectIp);
   }
 }
