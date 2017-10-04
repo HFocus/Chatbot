@@ -3,11 +3,12 @@ import processing.net.*;
 Server s;
 Client c;
 String dataIn;
+String[] ip;
 
 //Prerun Constants
-int cPort = ;                     //Their sPort
-int sPort = ;                     //Their cPort
-String ConnectIp = ;  //Type connect ip here
+int cPort = 5678;                     //Their sPort
+int sPort = 1234;                     //Their cPort
+String ConnectIp = "164.104.40.117";  //Type connect ip here
 
 //objects
 VScrollbar vs1;
@@ -41,6 +42,8 @@ float sscale;                      //scale of the slider
 void setup() {
   //Initialization
   size(750, 600); //size of default image
+  
+  ip = loadStrings("http://" + "icanhazip.com/");
 
   vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
   cmd = new Commands();
