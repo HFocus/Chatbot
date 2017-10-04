@@ -17,6 +17,7 @@ class Commands
   }
 
   void Leave() {
+    s.write(username+" has left the chat");
     s.stop();
     c.stop();
     exit();
