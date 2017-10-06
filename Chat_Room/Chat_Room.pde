@@ -6,8 +6,8 @@ String dataIn;
 String[] ip;
 
 //Prerun Constants
-int cPort = ;                     //Their sPort
-int sPort = ;                     //Their cPort
+int cPort = 1234;                     //Their sPort
+int sPort = 5678;                     //Their cPort
 String ConnectIp = "";  //Type connect ip here
 
 //objects
@@ -20,6 +20,7 @@ StringList Msg = new StringList(); //Contains all Messages
 String txt= "";                    //Contains Input for a Message
 String username;                   //Contains Username for User
 String time;                       //Containts current timestamp
+String state = "IP";                      //State of program
 
 //Ints
 int maxFrameRate = 30;
@@ -28,6 +29,8 @@ int data[];
 //Bools
 boolean jeff = false; //It's name is jeff
 boolean user = false; //For checking to see if username had been input
+boolean cConnect = false;
+
 
 //colors
 color TC = color(153, 138, 255);//text color
@@ -42,9 +45,9 @@ float sscale;                      //scale of the slider
 void setup() {
   //Initialization
   size(750, 600); //size of default image
-  
+  //load IP's
   ip = loadStrings("http://" + "icanhazip.com/");
-
+  //Load objects
   vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
   cmd = new Commands();
 
@@ -53,7 +56,7 @@ void setup() {
   //Starting Server connections
   s = new Server(this, sPort);
   delay(3000);
-  c = new Client(this, ConnectIp, cPort);
+
   //Startup
   Msg.append("Start of Chat");
   Msg.append("");
@@ -65,13 +68,6 @@ void setup() {
 }
 
 void draw() {
-  //checks for incomming data
-  int ava = c.available();
-  if (ava > 0) { 
-    dataIn = c.readString();
-    Msg.append(dataIn);
-    Msg.append("");
-  }
 
   //Update Variables
   sscale = (txtSize*Msg.size())+35+txtSize;
@@ -79,17 +75,32 @@ void draw() {
   Pos = vs1.getPos()-height*(sscale/height)+150; //Get Position of Scrollbar
   background(BC); // Make background Background Colour
 
-  //Prints messages
-  fill(TC);
-  if (user == true) { //If the username field has been filled, print Input as Message
-    textSize(12);
-    for (int i = Msg.size()-1; i > -1; i--) {
-      text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
+  //makes the username input if you are connected
+  if (cConnect == true) { 
+    fill(TC);
+
+    //Prints messages
+    if (user == true) { //If the username field has been filled, print Input as Message
+      textSize(12);
+      for (int i = Msg.size()-1; i > -1; i--) {
+        text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
+      }
+    } else { //Else make Input Username
+      textSize(15);
+      text("Input Username", 15, -15+(height-30));
     }
-  } else { //Else make Input Username
-    textSize(15);
-    text("Input Username", 15, -15+(height-30));
+
+
+    //Checks for incomming data
+    int ava = c.available();
+    if (ava > 0) { 
+      dataIn = c.readString();
+      Msg.append(dataIn);
+      Msg.append("");
+    }
+  } else {
   }
+
 
   //Create Textbox
   fill(BC);
@@ -116,36 +127,20 @@ void draw() {
 }
 
 void keyPressed() {
-  if (keyCode == ENTER && txt != "" && user == true) { //If Message is sent
-    if (txt.length() != 0 && txt.charAt(0) != '/') {
-      //Msg.append(time); //Adds Timestamp to Msg()
-      Msg.append(username + ": " + txt); //adds txt to Msg
-      s.write(username + ":" + txt);
-      Msg.append(""); //Makes a space between Messages
-      txt = ""; //Clears txt
-    } else {
-      cmd.Order(txt);
-      txt = ""; //Clears txt
-    }
-  } else if (keyCode == ENTER && txt != "" && user == false) {
-    //making if no username inputed username be inputed
-    username = txt;
-    user = true;
-    txt = "";
-    Msg.append(hour() + ":" + minute() + " " + day() + "/" + month() + "/" + year());
-    Msg.append("SERVER: " + username + " has entered the chat");
-    s.write("SERVER: " + username + " has entered the chat");
-    Msg.append("");
-    //allowing backspace
-  } else if (keyCode == BACKSPACE && txt.length() > 0) {
-    txt = txt.substring(0, txt.length()-1);
-  } else if ((key >= ' ' && key <= '~')) {
-    txt += key;
+  if (keyCode == ENTER && txt != "") { //If Message is sent
+  
+   if (state = "IP"){
+     State.IP(1);
+   }
+   if (state = "cPort"){
+     State.cPort(1);
+   }
+   if (state = "IP"){
+     State.IP(1);
+   }
   }
+} else if (keyCode == BACKSPACE && txt.length() > 0) {
+  txt = txt.substring(0, txt.length()-1);
+} else if ((key >= ' ' && key <= '~')) {
+  txt += key;
 }
-/////DEBUGGING
-/*void mousePressed(){
- if(mousePressed){
- println(mouseX,":",mouseY); 
- }
- }*/
