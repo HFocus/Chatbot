@@ -1,18 +1,19 @@
 //networking
 import processing.net.*;
-Server s;
-Client c;
+Server S;
+Client C;
 String dataIn;
 String[] ip;
 
 //Prerun Constants
 int cPort = 1234;                     //Their sPort
 int sPort = 5678;                     //Their cPort
-String ConnectIp = "";  //Type connect ip here
+String connectIp = "";  //Type connect ip here
 
 //objects
 VScrollbar vs1;
 Commands cmd;
+State st;
 
 //strings
 String input;
@@ -50,21 +51,18 @@ void setup() {
   //Load objects
   vs1 = new VScrollbar(width-10, 0, 20, height, 3*5+1);
   cmd = new Commands();
+  st = new State();
+  
 
   username = "Guest"; 
   frameRate(maxFrameRate); //Making frame rate Max frame rate
   //Starting Server connections
-  s = new Server(this, sPort);
-  delay(3000);
-
+  S = new Server(this, sPort);
+  C = new Client(this, connectIp, cPort);
+  
   //Startup
   Msg.append("Start of Chat");
   Msg.append("");
-
-  //making box resizeable
-  /*if(frame != null){
-   surface.setResizable(true); 
-   }*/
 }
 
 void draw() {
@@ -76,29 +74,16 @@ void draw() {
   background(BC); // Make background Background Colour
 
   //makes the username input if you are connected
-  if (cConnect == true) { 
-    fill(TC);
-
-    //Prints messages
-    if (user == true) { //If the username field has been filled, print Input as Message
-      textSize(12);
-      for (int i = Msg.size()-1; i > -1; i--) {
-        text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
-      }
-    } else { //Else make Input Username
-      textSize(15);
-      text("Input Username", 15, -15+(height-30));
-    }
-
-
-    //Checks for incomming data
-    int ava = c.available();
-    if (ava > 0) { 
-      dataIn = c.readString();
-      Msg.append(dataIn);
-      Msg.append("");
-    }
-  } else {
+  if (state == "IP") {
+    st.IP("draw");
+  } else if (state == "cPort") {
+    st.cPort("draw");
+  } else if (state == "sPort") {
+    st.sPort("draw");
+  } else if (state == "username") {
+    st.username("draw");
+  } else if (state == "chat") {
+    st.chat("draw");
   }
 
 
@@ -128,19 +113,21 @@ void draw() {
 
 void keyPressed() {
   if (keyCode == ENTER && txt != "") { //If Message is sent
-  
-   if (state = "IP"){
-     State.IP(1);
-   }
-   if (state = "cPort"){
-     State.cPort(1);
-   }
-   if (state = "IP"){
-     State.IP(1);
-   }
+
+    if (state == "IP") {
+      st.IP("confirm");
+    } else if (state == "cPort") {
+      st.cPort("confirm");
+    } else if (state == "sPort") {
+      st.sPort("confirm");
+    } else if (state == "username") {
+      st.username("confirm");
+    } else if (state == "chat") {
+      st.chat("confirm");
+    }
+  } else if (keyCode == BACKSPACE && txt.length() > 0) {
+    txt = txt.substring(0, txt.length()-1);
+  } else if ((key >= ' ' && key <= '~')) {
+    txt += key;
   }
-} else if (keyCode == BACKSPACE && txt.length() > 0) {
-  txt = txt.substring(0, txt.length()-1);
-} else if ((key >= ' ' && key <= '~')) {
-  txt += key;
-}
+} 

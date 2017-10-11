@@ -1,6 +1,5 @@
 class Commands
 {
-  
   Commands(){}
 
   String orderIn;
@@ -28,9 +27,9 @@ class Commands
   }
 
   void Leave() {
-    s.write("SERVER: " + username + " has left the chat");
-    s.stop();
-    c.stop();
+    S.write("SERVER: " + username + " has left the chat");
+    C.stop();
+    C.stop();
     exit();
   }
 
@@ -39,6 +38,6 @@ class Commands
   }
 
   void otherIp() {
-    Msg.append("SERVER: Their Ip:" + ConnectIp);
+    Msg.append("SERVER: Their Ip:" + connectIp);
   }
 }
