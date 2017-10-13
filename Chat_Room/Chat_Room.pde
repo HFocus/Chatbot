@@ -58,7 +58,6 @@ void setup() {
   frameRate(maxFrameRate); //Making frame rate Max frame rate
   //Starting Server connections
   S = new Server(this, sPort);
-  C = new Client(this, connectIp, cPort);
   
   //Startup
   Msg.append("Start of Chat");
@@ -130,4 +129,8 @@ void keyPressed() {
   } else if ((key >= ' ' && key <= '~')) {
     txt += key;
   }
-} 
+}
+
+void clientOpen(){
+  C = new Client(this, connectIp, cPort);
+}

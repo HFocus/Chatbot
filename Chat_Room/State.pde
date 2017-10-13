@@ -38,7 +38,7 @@ class State
       sPort = int(txt);
       state = "username";
       txt = "";
-     
+      clientOpen();
     }
   }
 
