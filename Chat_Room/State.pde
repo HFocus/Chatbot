@@ -14,7 +14,6 @@ class State
       text("BOTH USERS MUST BE ON THE SAME STEP BEFORE CONTINUING ONTO THE NEXT STEP!", 15, -60+(height-30));
     } else if (s == "confirm") {
       connectIp = txt;
-      state = "sPort";
       txt = "";
     }
   }
@@ -47,6 +46,14 @@ class State
       serverOpen();
     }
   }
+  
+  void connect(String s){
+    if (s == "draw") {
+      if (cConnect == true){
+      state = "username";
+      }
+    }
+  }
 
   void username(String s) {
     if (s == "draw") {
@@ -70,23 +77,22 @@ class State
       txt = "";
     }
   }
-
+  
   void chat(String s) {
     if (s == "draw") {
       fill(TC);
       textSize(12);
-      
+
       for (int i = Msg.size()-1; i > -1; i--) {
         text(Msg.get(i), 15, (Msg.size()-i)*-15+(height+125)-(Pos));
       }
-      
+
       int ava = C.available();
       if (ava > 0) { 
         dataIn = C.readString();
         Msg.append(dataIn);
         Msg.append("");
       }
-      
     } else if (s == "confirm") {
       if (txt.length() != 0 && txt.charAt(0) != '/') {
         //Msg.append(time); //Adds Timestamp to Msg()

@@ -112,12 +112,16 @@ void keyPressed() {
 
     if (state == "IP") {
       st.IP("confirm");
+      state = "sPort";
     } else if (state == "cPort") {
       st.cPort("confirm");
+      state = "connect";
     } else if (state == "sPort") {
       st.sPort("confirm");
+      state = "cPort";
     } else if (state == "username") {
       st.username("confirm");
+      state = "chat";
     } else if (state == "chat") {
       st.chat("confirm");
     }
@@ -126,6 +130,10 @@ void keyPressed() {
   } else if ((key >= ' ' && key <= '~')) {
     txt += key;
   }
+}
+
+void serverEvent(){
+  cConnect = true;
 }
 
 void clientOpen(){
