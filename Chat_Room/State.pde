@@ -10,9 +10,11 @@ class State
       fill(TC);
       textSize(15);
       text("Input Ip For Connection", 15, -15+(height-30));
+      text("Your Ip: " + ip[0], 15, -30+(height-30));
+      text("BOTH USERS MUST BE ON THE SAME STEP BEFORE CONTINUING ONTO THE NEXT STEP!", 15, -60+(height-30));
     } else if (s == "confirm") {
       connectIp = txt;
-      state = "cPort";
+      state = "sPort";
       txt = "";
     }
   }
@@ -21,11 +23,14 @@ class State
     if (s == "draw") {
       fill(TC);
       textSize(15);
-      text("Input your port for other to connect", 15, -15+(height-30));
+      text("Input other's port for you to connect", 15, -15+(height-30));
+      text("Your Port: " + sPort, 15, -30+(height-30));
+      text("BOTH USERS MUST BE ON THE SAME STEP BEFORE CONTINUING ONTO THE NEXT STEP!", 15, -60+(height-30));
     } else if (s == "confirm") {
       cPort = int(txt);
-      state = "sPort";
+      state = "username";
       txt = "";
+      clientOpen();
     }
   }
 
@@ -33,12 +38,13 @@ class State
     if (s == "draw") {
       fill(TC);
       textSize(15);
-      text("Input other's port for you to connect", 15, -15+(height-30));
+      text("Input your port for other to connect", 15, -15+(height-30));
+      text("BOTH USERS MUST BE ON THE SAME STEP BEFORE CONTINUING ONTO THE NEXT STEP!", 15, -60+(height-30));
     } else if (s == "confirm") {
       sPort = int(txt);
-      state = "username";
+      state = "cPort";
       txt = "";
-      clientOpen();
+      serverOpen();
     }
   }
 

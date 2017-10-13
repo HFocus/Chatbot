@@ -53,11 +53,8 @@ void setup() {
   cmd = new Commands();
   st = new State();
   
-
   username = "Guest"; 
   frameRate(maxFrameRate); //Making frame rate Max frame rate
-  //Starting Server connections
-  S = new Server(this, sPort);
   
   //Startup
   Msg.append("Start of Chat");
@@ -133,4 +130,8 @@ void keyPressed() {
 
 void clientOpen(){
   C = new Client(this, connectIp, cPort);
+}
+
+void serverOpen(){
+  S = new Server(this, sPort);
 }
