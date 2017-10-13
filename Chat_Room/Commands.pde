@@ -29,7 +29,7 @@ class Commands
   void Leave() {
     S.write("SERVER: " + username + " has left the chat");
     C.stop();
-    C.stop();
+    S.stop();
     exit();
   }
 
